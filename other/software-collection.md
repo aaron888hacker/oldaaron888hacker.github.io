@@ -1,6 +1,6 @@
 # <span id="begin">软件收藏</span>
 
-### [返回主页](https://xkk1.github.io/)[（gitee）](https://xkk1.gitee.io/)　　[返回其他](https://xkk1.github.io/other/)
+### [返回主页](https://aaron888hacker.github.io/)[返回其他](https://aaron888hacker.github.io/other/)
 
 ---
 
@@ -358,7 +358,7 @@ Zarchiver - 支持多格式的解压压缩工具
 
 
 #### [返回顶部](#begin) [回到目录](#content)  
-<span id="end">更新时间：2023年7月8日12:40:31&nbsp;&nbsp;QQ:3434623263<br>如果您对本页有什么意见或建议，可以到[我的网盘](http://xiaokuku.ys168.com/)留言区反馈（有Github账号的还可以去[我的网站的留言板](https://xkk1.github.io/message.html)）<span>
+<span id="end">更新时间：2023年7月8日12:40:31&nbsp;&nbsp;QQ:3434623263<br>如果您对本页有什么意见或建议，可以到[我的网盘](http://xiaokuku.ys168.com/)留言区反馈（有Github账号的还可以去[我的网站的留言板](https://aaron888hacker.github.io/message.html)）<span>
 
 <!--
 <details>
