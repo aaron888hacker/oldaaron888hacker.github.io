@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404</title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+    <!--<meta http-equiv=refresh content="5;url=https://xkk1.github.io/">-->
+  <script type="text/javascript" src="//qzonestyle.gtimg.cn/qzone/hybrid/app/404/search_children.js" charset="utf-8" homePageUrl="/" homePageName="回到我的主页"></script>
+  <style type="text/css">
+    .goHomePage {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        background: #eafed0;
+        /*
+        width: 100%;
+        height: 30px;
+        right: 0px;
+        bottom: 0px;
+        */
+    }
+  </style>
+  <script>
+    window.onload = function(){
+      document.documentElement.innerHTML += `
+    <div class="goHomePage">
+      <a id="aHomePage" href="/">返回主页</a>
+    </div>
+      `;
+    document.getElementById("aHomePage").href = window.location.protocol + "//" + window.location.host
+    }
+    </script>
+</head>
+<body>
+    <h1 class="xkk_h1">404 该页面不存在</h1>
+    <p class="xkk_p">
+<a href="/">返回主页</a><br>
+很抱歉，没有找到您要访问的页面<!--，5秒钟后将跳转回首页。-->
+    </p>
+
+</body>
+</html>

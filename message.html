@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+<link rel="stylesheet" type="text/css" href="./main.css" />
+</head>
+<body>
+    <h1 class="xkk_h1">留言板</h1>
+    <p class="xkk_p center">
+<a href="/">返回主页</a><br />
+    <font color="red"><strong>如果无法正常加载留言板，请尝试翻ด่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่่墙(<a href="https://baike.baidu.com/item/%E7%BF%BB%E5%A2%99/754773" target="_blank">百度百科</a>)</strong></font>
+    </p>
+
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<!-- or
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+<script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+    -->
+<script>
+var gitalk = new Gitalk({
+    id: location.pathname, // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
+    clientID: 'fae9afae38bc6a94ef94', // GitHub Application Client ID
+    clientSecret: 'c9addad8921876026bce94a6402958e783669b8e', // GitHub Application Client Secret
+    repo: 'gitalk-comments', // 存放评论的仓库
+    owner: 'xkk1', // 仓库的创建者，
+    admin: ['xkk1'], // 如果仓库有多个人可以操作，那么在这里以数组形式写出
+    labels: ['Gitalk'], //GitHub issue 的标签。
+    perPage: 20, //每次加载的数据大小，最多 100。
+    language: 'zh-CN', //设置语言，支持 [en, zh-CN, zh-TW, es-ES, fr, ru, de, pl, ko]
+})
+gitalk.render('gitalk-container')
+</script>
+
+<!--PC和WAP自适应版
+<div id="SOHUCS" sid="message" ></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cyvjcGqHN'; 
+var conf = 'prod_bd9d1eec0d7a062f828dd84696daa87f'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) {
+var head = document.getElementsByTagName('head')[0]||document.head||document.documentElement;
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.charset = 'utf-8';
+script.id = 'changyan_mobile_js';
+script.src = 'https://cy-cdn.kuaizhan.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+head.appendChild(script);
+} else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://cy-cdn.kuaizhan.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+畅言代码结束-->
+</body>
+</html>

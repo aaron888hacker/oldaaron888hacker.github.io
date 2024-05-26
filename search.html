@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>小喾苦搜索聚合</title>
+</head>
+<body>
+    <div id="floating_window">
+		<div id="search_div">
+			<div class="search_box" id="search_box">
+				
+				<!--<button class="change_button" type="button" onclick="hide();">◀</button>
+				<button class="change_button" id="show_hide_set_up_button" type="button" onclick="show_hide_set_up();" style="width: 60px;">设置▼</button>-->
+				<input class="change_button" type="button" value="◀" onclick="hide()">
+				<input class="change_button"  id="show_hide_set_up_button" type="button" value="设置▲" onclick="show_hide_set_up()">
+				<input class="keyword" type="search" id="keyword" value="" onkeydown="enter_search()" placeholder="输入关键字">
+				<input class="search" type="submit" id="search" value="搜索" onclick="onclick_search()">
+			</div>
+			<div id="set_up">
+				<!--<select class="select" id="type_select"  onchange="select_search()"></select>-->
+				<select class="select" id="select"  onchange="select_search()">
+					<!--<option value=""></option>-->
+					<option value="https://m.baidu.com/pu=sz@1321_1001/s?word={keyword}">百度精简版</option>
+					<option value="https://www.baidu.com/s?ie=utf-8&word={keyword}">百度搜索</option>
+					<option value="https://cn.bing.com/search?q={keyword}">必应搜索</option>
+					<!--<option value="https://cn.bing.com/search?ensearch=1&q={keyword}">必应国际版</option>开启后无法返回国内版-->
+					<option value="https://www.so.com/s?q={keyword}">360搜索</option>
+					<option value="https://quark.sm.cn/s?q={keyword}">夸克搜索</option>
+					<option value="https://so.m.sm.cn/s?q={keyword}">神马搜索</option>
+					<option value="https://www.sogou.com/web?query={keyword}">搜狗搜索</option>
+					<option value="https://m.toutiao.com/search?keyword={keyword}">头条搜索</option>
+					<!--<option value="https://mijisou.com/?q={keyword}">秘迹搜索</option>-->
+					
+					<option value="https://m.baidu.com/pu=sz@1321_1001/s?word=site%3Abaike.baidu.com+{keyword}">百度百科</option>
+					<option value="https://wenku.baidu.com/search?word={keyword}">百度文库</option>
+					<option value="https://fanyi.baidu.com/#auto/zh/{keyword}">百度翻译</option>
+					<option value="https://translate.google.cn/?sl=auto&tl=zh-CN&op=translate&text={keyword}">谷歌翻译</option>
+					<option value="https://dict.youdao.com/search?q={keyword}">有道翻译</option>
+					<option value="https://www.iciba.com/word?w={keyword}">金山词霸</option>
+					<option value="https://fanyi.so.com/?src=tab_www#{keyword}">360翻译</option>
+					<option value="https://fanyi.sogou.com/?fr=websearch_submit&pid=&keyword={keyword}">搜狗翻译</option>
+					<option value="https://cn.bing.com/translator?ref=TThis&&text={keyword}&from=en&to=zh-Hans">微软翻译</option>
+					<!--<option value="https://fanyi.baidu.com/#zh/en/{keyword}">汉译英</option>-->
+					<option value="https://www.zhihu.com/search?type=content&q={keyword}">知乎</option>
+					<option value="https://s.weibo.com/weibo?q={keyword}">微博</option>
+					
+					<option value="https://www.qidian.com/search?kw={keyword}">起点中文网</option>
+					<option value="http://search.zongheng.com/s?keyword={keyword}">纵横中文网</option>
+					<option value="https://search.douban.com/book/subject_search?search_text={keyword}">豆瓣读书</option>
+					<option value="https://www.lrts.me/search/book/{keyword}">懒人畅听(听书)</option>
+					
+					<option value="https://music.163.com/#/search/m/?s={keyword}">网易云音乐</option>
+					<option value="https://www.kugou.com/yy/html/search.html#searchType=song&searchKeyWord={keyword}">酷狗音乐</option>
+					<option value="https://www.kuwo.cn/search/list?key={keyword}">酷我音乐</option>
+					<option value="https://music.taihe.com/search?word={keyword}">千千音乐</option>
+					<option value="https://y.qq.com/n/ryqq/search?t=song&w={keyword}">QQ音乐</option>
+					<option value="https://www.ximalaya.com/search/{keyword}">喜马拉雅</option>
+					<option value="https://www.qingting.fm/search/all/{keyword}">蜻蜓FM</option>
+					
+					<option value="https://search.bilibili.com/all?keyword={keyword}">哔哩哔哩</option>
+					<option value="https://www.acfun.cn/search?keyword={keyword}">AcFun</option>
+					<option value="https://so.iqiyi.com/so/q_{keyword}">爱奇艺搜索</option>
+					<option value="https://so.youku.com/search_video/q_{keyword}">优酷视频</option>
+					<option value="https://v.qq.com/x/search/?q={keyword}">腾讯视频</option>
+					<option value="https://www.douyin.com/search/{keyword}">抖音</option>
+					
+					<option value="https://goobe.io/search.aspx?k={keyword}">Goobe</option>
+					<option value="https://so.csdn.net/so/search?q={keyword}">CSDN</option>
+					<option value="https://search.gitee.com/?skin=rec&type=repository&q={keyword}">码云</option>
+					<option value="https://github.com/search?q={keyword}">GitHub</option>
+					
+					<option value="https://search.yahoo.com/search?p={keyword}">雅虎</option>
+					<option value="https://www.google.com/search?q={keyword}">谷歌搜索</option>
+					
+					<!--<option value="https://achelois.shuu.cf/search?q={keyword}">谷歌镜像1</option>-->
+					
+					<!--<option value="https://ceres.shuu.cf/extdomains/www.google.com.hk/search?q={keyword}">谷歌镜像3</option>-->
+					<!--<option value="https://g20.i-research.edu.eu.org/search?q={keyword}">谷歌镜像4</option>-->
+					<!--<option value="https://diana.shuu.cf/extdomains/www.google.com.hk/search?q={keyword}">谷歌镜像5</option>-->
+					<!--<option value="https://aiolos.shuu.cf/extdomains/www.google.co.jp/search?q={keyword}">谷歌镜像7</option>-->
+					<!--<option value="https://anemoi.shuu.cf/extdomains/www.google.com.sg/search?q={keyword}">谷歌镜像8</option>-->
+					<!--<option value="https://aether.shuu.cf/extdomains/www.google.com.sg/search?q={keyword}">谷歌镜像9</option>-->
+					<!--<option value="https://alectrona.shuu.cf/extdomains/www.google.co.jp/search?q={keyword}">谷歌镜像10</option>-->
+					<!--<option value="https://juno.shuu.cf/extdomains/www.google.com.hk/search?q={keyword}">谷歌镜像11</option>-->
+					<!--<option value="https://go-xyz.xyz/search?q={keyword}">谷歌镜像1</option>-->
+					<!--<option value="https://mars.shuu.cf/extdomains/www.google.com.hk/search?q={keyword}">谷歌镜像2</option>-->
+					<!--<option value="https://search.iwiki.uk/extdomains/www.google.com.hk/search?q={keyword}">谷歌镜像3</option>-->
+								</select>
+				<input id="new_page_open" name="new_page_open" type="checkbox" value="" />在新页面打开
+				<input id="more_set_up_buton" type="button" value="更多设置" onclick="more_set_up()" />
+				<div id="more_set_up_div"  style="display: none;">
+					<!--<input id="open_this_page_in_a_new_page_button" type="button" value="在新页面打开本页" onclick="open_this_page_in_a_new_page()" />-->
+					<p style="text-decoration:none;color: rgba(0, 0, 0, 0.5);">更多功能正在努力制作中……</p>
+					<a style="text-decoration:none;color: rgba(0, 0, 0, 1.0);" href="/" target="_blank">本页面由小喾苦制作<br></a>
+					<a href="https://space.bilibili.com/513689605" target="_blank">小喾苦的个人空间_哔哩哔哩</a>
+				</div>
+			</div>
+			<div id="list_div" style="display: none;">
+				<ul id="list"></ul>
+			</div>
+		</div>
+
+		<div id="show" style="display: none;">
+			<button class="change_button" type="button" onclick="show();">▶</button>
+		</div>
+
+
+    </div>
+
+    <iframe id="search_page" frameborder="0" style="display: none;">
+        您的浏览器不支持iframe，推荐使用Chrome浏览器
+    </iframe>
+
+	<div id="information">
+		<p>
+			<br /><br /><br /><br />有些网页(如百度翻译、谷歌翻译、知乎、起点中文网、纵横中文网、酷我音乐、蜻蜓FM、优酷视频、GitHub等)不支持其他页面调用，请启用“在新页面打开”
+		</p>
+		<p style="text-align: right;"><a style="text-decoration:none;color: rgba(0, 0, 0, 0.5);" href="/">by 小喾苦 2021-7-23</a></p>
+	</div>
+
+    <script>
+var search_page = document.getElementById('search_page');
+var show_div = document.getElementById('show');
+var search_div = document.getElementById('search_div');
+var set_up_div = document.getElementById('set_up');
+var show_hide_set_up_button = document.getElementById('show_hide_set_up_button');
+var new_page_open = document.getElementById('new_page_open');
+var select=document.getElementById('select');
+var information_div=document.getElementById('information');
+var input_keyword = document.getElementById('keyword');
+var more_set_up_buton = document.getElementById("more_set_up_buton");
+var more_set_up_div = document.getElementById("more_set_up_div")
+
+var original_title=document.title;
+
+function show(){show_div.style.display="none";search_div.style.display="";}
+function hide(){show_div.style.display="";search_div.style.display="none";}
+function show_hide_set_up(){
+	if(set_up_div.style.display=="none"){set_up_div.style.display="";show_hide_set_up_button.value="设置▲";}
+	else{set_up_div.style.display="none";show_hide_set_up_button.value="设置▼";}
+	//alert(new_page_open.value);
+	//console.log(ready("input[name='new_page_open']:checked").val());
+	console.log(new_page_open.checked==true)
+}
+
+function more_set_up(){
+	if (more_set_up_buton.value == "更多设置"){more_set_up_div.style.display="";more_set_up_buton.value = "隐藏更多";}
+	else{more_set_up_div.style.display="none";more_set_up_buton.value = "更多设置";}
+}
+
+// function open_this_page_in_a_new_page(){window.open(search_page.contentWindow.location.href, '_blank');}
+function open_this_page_in_a_new_page(){window.open(search_page.src, '_blank');}
+
+// 更改URL不跳转
+
+/*
+* changeURLStatic 修改地址栏URL参数 不跳转
+*   @param name 参数名
+*   @param value 参数值
+*
+* */
+function changeURLStatic(name, value) {
+    var url = location.href;
+    var reg = eval('/([\?|&]'+name+'=)[^&]*/gi');
+    value = value.toString().replace(/(^\s*)|(\s*$)/g,"");  //移除首尾空格
+    if(!value){
+        var url2 = url.replace(reg , '');  //正则替换
+    }else{
+        if(url.match(reg)){
+            var url2 = url.replace(reg , '$1' + value);  //正则替换
+        }else{
+            var url2 = url + (url.indexOf('?') > -1 ? '&' : '?') + name + '=' +value;  //没有参数添加参数
+        }
+    }
+    history.replaceState(null,null, url2);  //替换地址栏
+}
+//当前页面地址
+//index.php?m=p&a=index&classify_id=225&search=i
+//执行修改
+//changeURLStatic('search', '99999');
+//修改后页面地址
+//index.php?m=p&a=index&classify_id=225&search=99999
+
+
+//获取get(url?)地址
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+/*
+使用实例
+url 实例：
+
+http://www.runoob.com/index.php?id=1&image=awesome.jpg
+调用 getQueryVariable("id") 返回 1。
+
+调用 getQueryVariable("image") 返回 "awesome.jpg"。
+*/
+console.log(getQueryVariable("search"))
+//search_page.src="https://xkk1.gitee.io";
+
+function search(keyword){
+	information_div.style.display="none";
+	search_page.style.display="";
+
+	list_div.style.display="none";
+
+
+	document.title = keyword + "-" + original_title;
+
+	//var select=document.getElementById('select');
+	var selected_index= select.selectedIndex; //序号，取当前选中选项的序号
+	var selected_value = select.options[selected_index].value; //取当前选中选项的值
+	//var selected_text = select.options[selected_index].text; //取当前选中选项的文本
+
+	//var utext = document.getElementById("keyword");
+	//var keyword = utext.value;
+
+	//window.location.href="https://m.baidu.com/pu=sz@1321_1001/s?word=site%3Abaike.baidu.com+" + keyword;
+	//url = "https://m.baidu.com/pu=sz@1321_1001/s?word=site%3Abaike.baidu.com+" + keyword;
+	//encodeURIComponent(url); 转码
+	//unescape , decodeURI , decodeURIComponent  解码
+	
+	//url = selected_value + encodeURIComponent(keyword); 
+	url = selected_value.replace(/\{keyword\}/g, encodeURIComponent(keyword));
+	changeURLStatic("q", encodeURIComponent(keyword))
+	if(new_page_open.checked==true){
+		window.open(url, '_blank');
+	}else{
+		search_page.src=url;
+	}
+	
+}
+
+function select_search(){
+	var selected_index= select.selectedIndex; //序号，取当前选中选项的序号
+	var selected_text = select.options[selected_index].text; //取当前选中选项的文本
+	changeURLStatic("s", encodeURIComponent(selected_text))
+	if(new_page_open.checked==false){
+		onclick_search()
+	}
+}
+
+function onclick_search(){
+	var utext = document.getElementById("keyword");
+	var keyword = utext.value;
+	search(keyword);
+}
+function  enter_search(){
+	var event = window.event || arguments.callee.caller.arguments[0];
+	if (event.keyCode == 13)
+	{
+		onclick_search();
+	}
+}
+
+
+
+// 搜索联想
+
+
+var oList = document.getElementById('list');
+
+function list_search(keyword){
+	var input = document.getElementById('keyword');
+	input.value = keyword;
+
+	oList.innerHTML = '';
+	list_div.style.display = 'none';
+	oList.style.display = 'none';
+
+	search(keyword);
+}
+
+var input = document.getElementById('keyword');
+//var oUl = document.getElementById('ul');
+
+var list_div = document.getElementById('list_div');
+input.onkeyup = function () {
+	var value = this.value;
+	var oScript = document.createElement('script');
+	//oScript.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + value + '&cb=aa';
+	oScript.src = 'https://www.baidu.com/sugrec?json=1&prod=pc&wd=' + value + '&cb=doJson';
+	// 核心在这里，
+	// 1.实时获取参数 value
+	// 2.cb=返回值的处理函数（aa）
+	document.body.appendChild(oScript);
+	document.body.removeChild(oScript);  //注意回调之后删除生成的script
+}
+/*
+function aa(data) {
+	oUl.style.display = 'block';
+	var list = data.s;
+	var str = '';
+	if (list.length > 0) {
+		list.forEach(function (ele, index) {
+			str += '<li><a href ="https://www.baidu.com/s?wd=' + ele + '">' + ele + '</li>';
+		})
+		oUl.innerHTML = str;
+	} else {
+		oUl.style.display = 'none';
+	}
+}*/
+
+// 字符串拼接形式
+function doJson(data) {
+	var dataArr = data.g;
+	oList.innerHTML = '';
+	str = '';
+	try{
+		if (dataArr.length > 0) {
+			dataArr.forEach(function (ele, index) {
+				//if (index > 3) return;
+				//str += '<li><a href="https://www.baidu.com/s?wd=' + ele.q + ' " target = "_blank">' + ele
+				//	.q + '</a></li>';
+				str += '<li onclick="list_search(\'' + ele.q + '\')">' + ele.q + '</li>';
+			});
+			str += '<li onclick="javascript:list_div.style.display = \'none\';">关闭</li>';
+			oList.innerHTML = str;
+			list_div.style.display = 'block';
+			oList.style.display = 'block';
+		} else {
+			list_div.style.display = 'none';
+			oList.style.display = 'none';
+		}
+	}catch(e){
+		list_div.style.display = 'none';
+		oList.style.display = 'none';
+	}
+}
+
+// 设置select中text="paraText"的第一个Item为选中
+function jsSelectItemByValue(objSelect, objItemText) {
+//判断是否存在
+var isExit = false;
+for (var i = 0; i < objSelect.options.length; i++) {
+if (objSelect.options[i].text == objItemText) {
+objSelect.options[i].selected = true;
+isExit = true;
+break;
+}
+}
+//Show出结果
+if (isExit) {
+console.log("成功选中" + objItemText);
+} else {
+console.log("该select中 不存在该项" + objItemText);
+}
+}
+
+//jsSelectItemByValue(select, "夸克搜索")
+
+window.onload = function(){
+	search_question = getQueryVariable("q")
+	//console.log(search_word)
+	search_engine = getQueryVariable("s")
+	if(search_engine != false){
+		jsSelectItemByValue(select, decodeURIComponent(search_engine))
+	}
+	if(search_question != false){
+		input_keyword.value = decodeURIComponent(search_question);
+		search(decodeURIComponent(search_question));
+
+	}
+}
+
+	</script>
+    <style>
+*{margin: 0;padding: 0;}
+html{height: 100%;}
+body{height: 100%;}
+#floating_window{
+    position: fixed;
+    left: 0px;
+    /*width: 100%;*/
+	top: 0px;
+	background-color:#fff;
+}
+#search_page{
+	height: 100%;
+	width: 100%;
+}
+.search_box
+{
+    display: flex;
+}
+.select
+{
+    width: 80px;
+    height: 30px;
+    font-size: 12px;
+    border: 1px solid #ccc; 
+}
+.keyword
+{
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+    border: 1px solid #ccc; 
+    /*padding: 7px 7px;
+    padding-left:5px; */
+}
+.search
+{
+    width: 70px;
+    height: 30px;
+    font-size: 19px;
+    border: 1px solid #ccc;
+}
+.change_button{
+	height: 30px;
+	display: inline;
+	/*width: 25px;*/
+}
+#list_div{
+	width:100%;
+	border: 1px solid #ccc;
+	border-top: none;
+	display: none;
+    text-align:left;
+	}
+	
+#list_div ul li{
+		list-style: none;
+		line-height: 25px;
+		padding-left: 10px;
+		}
+#list_div ul li:hover{
+		background: #aea;
+		}	
+    </style>
+</body>
+</html>

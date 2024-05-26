@@ -1,0 +1,20 @@
+body {
+    /*background-image: url(img/bg6.jpg);
+    background-size: cover;*/
+    background-color:#eafed0;
+}
+div#main {
+    max-width: 64rem;
+    margin: 0 auto;
+}
+.xkk_h1 {
+    color:orange;
+    text-align:center;
+    font-size:40px;
+}
+.xkk_p {
+    color:black;
+    font-size:20px;
+}
+p.center {text-align:center;}
+.xkk_main {max-width: 64rem;}
