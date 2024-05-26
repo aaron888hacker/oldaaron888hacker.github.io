@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AaronPDF在线显示</title>
+</head>
+<body>
+    <div id="pdf">
+        <h1>PDF在线显示使用方法</h1>
+        <p>get请求：<br>
+        https://xkk1.github.io/other/pdf.html?title=标题&pdf=pdf文件地址<br>
+        https://xkk1.gitee.io/other/pdf.html?title=标题&pdf=pdf文件地址
+        </p>
+    </div>
+<script>
+var $_GET = (function(){
+    var url = window.document.location.href.toString(); //获取的完整url
+    var u = url.split("?");
+    if(typeof(u[1]) == "string"){
+        u = u[1].split("&");
+        var get = {};
+        for(var i in u){
+            var j = u[i].split("=");
+            get[j[0]] = j[1];
+        }
+        return get;
+    } else {
+        return {};
+    }
+})();
+    var title = decodeURI($_GET['title']);
+    if (title != "undefined")
+    {
+        document.title = title;
+    }
+var pdf_url = decodeURI($_GET['pdf']);
+if (pdf_url != "undefined")
+    {
+document.getElementById('pdf').innerHTML = '<div id="pdf">\
+        <object data="' + pdf_url + '" type="application/pdf" width="100%" height="100%">\
+            <iframe src="' + pdf_url + '" width="100%" height="100%" style="border: none;">\
+                该浏览器不支持PDFs，请单击查看: \
+                <a href="' + pdf_url + '">Download PDF</a>\
+            </iframe>\
+        </object>'
+    }
+</script>
+<style>
+html,body
+{
+    height: 100%;
+}
+#pdf
+{
+    height: 100%;
+}
+</style>
+</body>
+</html>
