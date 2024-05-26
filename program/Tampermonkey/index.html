@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>篡改猴脚本</title>
+    <link rel="stylesheet" type="text/css" href="../../main.css" />
+</head>
+<body>
+    <p class="xkk_p center"><a href="/">返回主页</a>&nbsp;&nbsp;&nbsp;<a href="/program">程序</a></p>
+    <h1 class="xkk_h1">篡改猴脚本</h1>
+    <p class="xkk_p">
+<a href="https://www.tampermonkey.net/" target="_blank">Tampermonkey（篡改猴）</a>是一款免费的浏览器扩展和最为流行的用户脚本管理器
+<br />它适用于 Chrome, Microsoft Edge, Safari, Opera Next, 和 Firefox等支持安装浏览器扩展的浏览器
+<br />您可以进入<a href="https://www.tampermonkey.net/" target="_blank">Tampermonkey官网</a>或浏览器的扩展商城里下载
+    </p>
+    <p class="xkk_p">
+下面是几个提供脚本下载的网站，您可以下载您想要的脚本
+<br />
+<a href="https://greasyfork.org/zh-CN" target="_blank">Greasy Fork</a>
+/
+<a href="https://www.userscript.zone/" target="_blank">Userscript.Zone Search</a>
+/
+<a href="https://openuserjs.org/" target="_blank">OpenUserJS</a>
+/
+<a href="https://gist.github.com/search?l=JavaScript&o=desc&q=%22%3D%3DUserScript%3D%3D%22&s=updated" target="_blank">GitHub/Gist（需翻墙）</a>
+    </p>
+    <p class="xkk_p">
+鄙人不才，没能认真研究过写脚本
+<br />以下是我随便写写的脚本，大家可以安装玩玩
+<br />
+
+<div id="script_div"></div>
+</p>
+
+<div id="cover_box" style="display: none;" onclick="javascript:hide_help();"></div>
+<div id="help_box" style="display: none;">
+    <h3>“<span class="script_name"></span>”用户脚本</h3>
+    <p>
+        &nbsp;&nbsp;&nbsp;&nbsp;用户脚本是一段代码，它们能够优化您的网页浏览体验。安装之后，有些脚本能为网站添加新的功能，有些能使网站的界面更加易用，有些则能隐藏网站上烦人的部分内容。<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;要使用用户脚本，您首先需要安装一个用户脚本管理器。我这里推荐使用“<b>篡改猴</b>”作为您的用户脚本管理器。<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;如果您已经安装了“篡改猴”，您可以点击下方“<b>安装此脚本</b>”来安装“<b><span class="script_name"></span></b>”脚本。
+    </p>
+    <div id="install_box"></div>
+    <p>
+        <b>安装篡改猴脚本</b><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;电脑端推荐您使用 <a href="https://www.microsoft.com/zh-cn/edge/home" target="_blank">Microsoft Edge</a> 浏览器 ，
+        在安装完 Microsoft Edge 后请您用 Microsoft Edge 进入
+        <a href="https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd" target="_blank">篡改猴 (Tampermonkey) Edge 外接程序</a> 点击“<b>获取</b>”来安装篡改猴脚本。<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;手机端(Android)您可以使用 <a href="https://www.xbext.com/" target="_blank">X浏览器</a> <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;手机端(ios)您可以使用<a href="https://www.tampermonkey.net/?browser=safari" target="_blank">Safari</a>
+    </p>
+    <div id="OK_button" onclick="javascript:hide_help();"><span>确定</span></div>
+</div>
+<style>
+    *{margin: 0;padding: 0;}
+    div#help_box
+    {
+        width: auto;
+        height: auto;
+        background:rgb(113, 255, 158);
+        border-radius: 25px;
+        border: 2px solid #ccff00;
+        padding: 15px; /*内边距*/
+        /*居中*/
+        position: absolute;
+
+        overflow: auto; 
+        margin: auto; 
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-right: 40px;
+        margin-left: 40px;
+        left: 0;
+        bottom: 0;
+        right: 0; 
+        top:0;
+        z-index: 2; 
+        opacity: 1.0;
+        animation: help_box_animation 0.7s;
+    }
+    div#cover_box{
+        background: gray; 
+        position: absolute; 
+        left: 0px; 
+        top: 0px; 
+        width: 100%; 
+        height: 100%; 
+        z-index: 1; 
+        filter: blur(20px);
+        opacity: 0.8; 
+        animation: cover_box_animation 0.4s;
+    }
+    div#OK_button
+    {
+        width: 60px;
+        background:rgb(0, 53, 17);
+        border-radius: 10px;
+        border: 2px solid #116700;
+        margin: auto;
+        padding: 4px; /*内边距*/
+        color: #00ff00;
+        /*居中*/
+        vertical-align: middle;
+        text-align: center;
+        font-weight:bold;
+    }
+    #install_box
+    {
+        vertical-align: middle;
+        text-align: center;
+    }
+    #install
+    {
+    display: inline-block;
+    background-color: #005200;
+    padding: 1px 1px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 5px;
+    }
+    
+    @keyframes help_box_animation
+    {
+        0%   {
+    
+            top:400px;
+            opacity: 0.0;
+        }
+    
+        100% {
+    
+            top:0;
+            opacity: 0.9;
+        }
+    }
+    
+    @keyframes cover_box_animation
+    {
+        0%   {
+            filter: blur(1px);
+            opacity: 0.0; 
+        }
+    
+        100% {
+            filter: blur(20px);
+            opacity: 0.8; 
+        }
+    }
+
+</style>
+ <script>
+var script_list = [ // [name, url , relevant_url]
+["找色差作弊", "https://www.zhaosecha.com/"],
+["自定义百度", "https://www.baidu.com/"],
+["真谷歌生草机", "https://translate.google.com/"],
+["B站视频数据修改", "https://www.bilibili.com/"],
+["高考倒计时" ,"https://www.baidu.com/"],
+["4399弹窗关闭", "https://www.4399.com/"],
+["删除百度侧边栏", "https://www.baidu.com/"],
+["程序在线评测平台黑暗模式", "https://icpc.ldu.edu.cn/"],
+["程序设计在线评测平台题目信息获取", "https://icpc.ldu.edu.cn/"],
+["优学院夜间模式", "https://www.ulearning.cn/"],
+["优学院调节视频倍速", "https://ua.ulearning.cn/learnCourse/learnCourse.html"]
+];
+var script_table = '<table border="1">\n<tr><td>脚本名称/安装脚本</td><td>相关网站</td></tr>';
+var i = 0;
+for  (i=0; i <= script_list.length - 1 ; i++){
+    console.log(i);
+    script_table += `<tr>
+    <td><a href="#`+script_list[i][0]+`" onclick="show_help('`+script_list[i][0]+`')">`+script_list[i][0]+`</a></td>
+    <td><a href="`+script_list[i][1]+`" target="_blank">`+script_list[i][1]+`</a></td>
+</tr>
+`;
+};
+script_table += '</table>';
+var script_div = document.getElementById("script_div");
+script_div.innerHTML = script_table;
+
+
+function show_help(script_name){
+    document.getElementById("install_box").innerHTML=`<span id="`+script_name+`"><a id="install" href="./`+script_name+`.user.js">安装此脚本</a></span>`;
+	document.getElementById("help_box").style.display="";
+	document.getElementById("cover_box").style.display="";
+	var script_name_elements = document.getElementsByClassName("script_name");
+	for(i=0;i<script_name_elements.length;i++){
+		script_name_elements[i].innerHTML = script_name;
+	}
+	return 0;
+}
+function hide_help(){
+	document.getElementById("help_box").style.display="none";
+	document.getElementById("cover_box").style.display="none";
+	return 0;
+}
+function try_show_help(){
+    if(window.location.href.split("#").length==2){
+        var url_name=decodeURIComponent(window.location.href.split("#")[1]);
+        for  (i=0; i <= script_list.length - 1 ; i++){
+            if (url_name === script_list[i][0]){
+                show_help(url_name);
+                break;
+            }
+        }
+    }
+}
+window.onload=try_show_help;
+</script>
+<!--
+<a href="" target="_blank"></a>
+<table border="1">
+<tr><td>100</td><td>200</td></tr>
+<tr><td>400</td><td>500</td></tr>
+</table>
+-->
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<!-- or
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+<script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+    -->
+<script>
+var gitalk = new Gitalk({
+    id: location.pathname, // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
+    clientID: 'fae9afae38bc6a94ef94', // GitHub Application Client ID
+    clientSecret: 'c9addad8921876026bce94a6402958e783669b8e', // GitHub Application Client Secret
+    repo: 'gitalk-comments', // 存放评论的仓库
+    owner: 'xkk1', // 仓库的创建者，
+    admin: ['xkk1'], // 如果仓库有多个人可以操作，那么在这里以数组形式写出
+    labels: ['Gitalk'], //GitHub issue 的标签。
+    perPage: 20, //每次加载的数据大小，最多 100。
+    language: 'zh-CN', //设置语言，支持 [en, zh-CN, zh-TW, es-ES, fr, ru, de, pl, ko]
+})
+gitalk.render('gitalk-container')
+</script>
+<p style="text-align:center;">
+<span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv">?</span>次</span>、
+<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv">?</span>次</span>、
+<span id="busuanzi_container_site_uv">本站总访客数<span id="busuanzi_value_site_uv">?</span>人</span>
+</p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>
