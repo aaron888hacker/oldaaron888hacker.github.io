@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>临时页面</title>
+<link rel="stylesheet" type="text/css" href="../../main.css" />
+</head>
+<body>
+<h1 class="xkk_h1" onclick="javascript:display('secret');">临时页面</h1>
+<div id="secret" style="display:none">
+    <input type="password" id="password" name="password" placeholder="请输入密码" value="" />
+    <input type="submit" id="submit" value="确认" onclick="return toopen();">
+</div>
+    <p class="xkk_p">
+<a href="../../">返回主页</a> <a href="../">返回其他</a>
+<br><br>
+<a href="http://note.youdao.com/s/QSupk11l" target="_blank">有道云笔记temporary.md</a>
+<br><br>
+<a href="./ldcr.html" target="_blank">龙的传人</a>
+<br><br>
+<a href="./dx.html" target="_blank">稻香</a>
+
+    </p>
+<div id="secret_information" style="display:none">
+  <p class="xkk_p">并没有什么东西</p>
+</div>
+<script type="text/javascript">
+var verification=false
+function toopen(){
+    if(document.getElementById("password").value=="temp"){
+        document.getElementById("secret_information").style.display="";
+        document.getElementById("secret").style.display="none";
+       //var traget=document.getElementById("secret_information");
+       //traget.style.display="";
+       //document.forms[0].action="try.html";
+       verification=true
+       return true;
+    }else{
+    alert("密码不正确！")
+    return false;
+    }
+}
+function display(id){  
+    if (verification){
+        var traget=document.getElementById("secret_information");  
+        if (traget.style.display=="none"){
+            traget.style.display="";  
+        }else{
+            traget.style.display="none";  
+        }
+    }else{
+        var traget=document.getElementById(id);  
+        if(traget.style.display=="none"){  
+            traget.style.display="";  
+        }else{  
+            traget.style.display="none";  
+        }  
+    }
+}  
+</script>
+<p style="text-align:center;">
+<span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv">?</span>次</span>、
+<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv">?</span>次</span>、
+<span id="busuanzi_container_site_uv">本站总访客数<span id="busuanzi_value_site_uv">?</span>人</span>
+</p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>
