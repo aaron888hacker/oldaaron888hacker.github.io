@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<div id="html">
+<h1>html代码效果展示接口</h1>
+get请求：<br>
+ https://xkk1.github.io/other/html.html?html=文件地址&title=标题<br>
+ https://xkk1.gitee.io/other/html.html?html=文件地址&title=标题<br>
+注意事项：<br>
+ 其实是把代码放到了body里<br>
+</div>
+<script>
+var $_GET = (function(){
+    var url = window.document.location.href.toString(); //获取的完整url
+    var u = url.split("?");
+    if(typeof(u[1]) == "string"){
+        u = u[1].split("&");
+        var get = {};
+        for(var i in u){
+            var j = u[i].split("=");
+            get[j[0]] = j[1];
+        }
+        return get;
+    } else {
+        return {};
+    }
+})();
+    var title = decodeURI($_GET['title']);
+    if (title != "undefined")
+    {
+        document.title = title;
+    }
+var htmlfile = decodeURI($_GET['html']);
+
+function innerHtml(html) {
+    document.getElementById('html').innerHTML = html;
+}
+
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        //callback(xmlHttp.responseText);
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText); // 这里获得返回数据。如有需要，结合实际情况进行解析处理。
+        else{callback("<h1>加载失败！<br>也有可能是正在加载，显示我是个bug</h1>")}
+    }
+    xmlHttp.open("GET", theUrl, true); // true 为异步
+    xmlHttp.send(null);
+}
+if (htmlfile != "undefined"){httpGetAsync(htmlfile, innerHtml);}
+
+/*
+if (htmlfile != "undefined"){
+function httpGet(theUrl){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+    }
+    document.getElementById('html').innerHTML = httpGet(htmlfile);
+}*/
+</script>
+</body>
+</html>
