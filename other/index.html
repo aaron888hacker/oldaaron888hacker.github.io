@@ -5,15 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>其他</title>
-<link rel="stylesheet" type="text/css" href="https://xkk1.github.io/main.css" />
+<link rel="stylesheet" type="text/css" href="https://aaron888hacker.github.io/main.css" />
 </head>
 <body>
 <div id="main">
 <h1 class="xkk_h1" onclick="display('secret')">其他</h1>
-<div id="secret" style="display:none;text-align:center">
-    <input type="password" id="password" name="password" placeholder="请输入密码" value="" />
-    <input type="submit" id="submit" value="确认" onclick="toopen()">
-</div>
     <p class="xkk_p">
 <a href="/">返回主页</a>
 <br><br>
@@ -50,34 +46,7 @@
 <script type="text/javascript">
 document.getElementById("adult").href = "https://xkk1.github.io/R"+"18/";
 document.getElementById("adult-set").href = "https://xkk1.github.io/R"+"18/set.html";
-var verification = false;
-function toopen() {
-    if(window.btoa(encodeURI(document.getElementById("password").value)).replace(/[A-Z]|=/g,"").replace("x","kk").replace("zz","x")=="xkk"){
-        document.getElementById("secret_information").style.display = "";
-        document.getElementById("secret").style.display = "none";
-        verification = true;
-    }else{
-        alert("密码不正确！");
-        display("secret");
-    }
-}
-function display(id){  
-    if (verification){
-        var traget=document.getElementById("secret_information");  
-        if (traget.style.display == "none"){
-            traget.style.display = "";  
-        }else{
-            traget.style.display = "none";  
-        }
-    }else{
-        var traget = document.getElementById(id);  
-        if(traget.style.display == "none"){  
-            traget.style.display = "";  
-        }else{  
-            traget.style.display = "none";  
-        }  
-    }
-}  
+
 </script>
 <p style="text-align:center;">
 <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv">?</span>次</span>、
