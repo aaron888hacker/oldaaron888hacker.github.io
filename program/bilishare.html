@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://www.bilibili.com/favicon.ico" />
+    <title>哔哩哔哩视频分享</title>
+</head>
+<body>
+    <main style="margin:0 auto;max-width: 1000px;">
+        <div id="biliplay"></div>
+        <h1>哔哩哔哩视频分享</h1>
+        <div id="input_div">
+            <input type="search" id="BV" value="" onkeydown="enter_OK()" placeholder="请输入哔哩哔哩视频链接或BV号(包含BV)" />
+            <input type="submit" id="OK" value="确定" onclick="onclick_OK()" />
+        </div>
+        <div id="show_info"></div>
+        <div id="help_div">
+            <p class="help_p">
+                <br />
+                本工具用于分享哔哩哔哩视频，可去除手机上无哔哩哔哩APP的用户观看时
+            </p>
+            <div class="mplayer-widescreen-callapp"><a href="https://d.bilibili.com/download_app.html" style="text-decoration: none;color: #fff;" target="_blank">打开App，看高清全屏</a></div>
+            <p class="help_p">
+                的打扰<i>（对于需要看字幕的视频影响太大了，很多人又懒得或不愿意为看一个视频下载APP，这可能降低外人对我们哔哩哔哩平台的好感度）</i>，本工具还可用来提取封面。<br />
+                使用方法：复制视频链接或BV号粘贴到上面的输入框里，点确定即可生成相应视频的分享页面。之后您可以选择分享本页或分享纯视频。<br />
+                <strong>注意：不支持https://b23.tv/xxx的短链接格式，请您在浏览器打开短链接后复制真正的链接</strong>
+            </p>
+        </div>
+        <p class="end_p" id="end_p">
+            <a href="/" target="_blank" class="end_a">本网页由小喾苦制作</a>&nbsp;<a href="https://www.google.cn/chrome/" target="_blank" class="end_a">推荐使用Chrome浏览器</a><br />
+            <a href="https://xkk1.github.io/" target="_blank" class="end_a">小喾苦的个人网站</a>&nbsp;<a href="https://space.bilibili.com/513689605" target="_blank" class="end_a">小喾苦的个人空间_哔哩哔哩</a><br />
+            <a href="https://github.com/xkk1/xkk1.github.io/blob/master/program/bilishare.html" target="_blank" class="end_a">GitHub开源地址</a>
+        </p>
+        <input id='copy_input'  style='opacity: 0;position: absolute;' type="text">
+    </main>
+    <script>
+var biliplay_div = document.getElementById("biliplay");
+var BV_input = document.getElementById("BV");
+var show_info_div = document.getElementById("show_info");
+var copy_input = document.getElementById("copy_input");  //input 的ID
+function copy(string){
+    copy_input.value = string;
+    copy_input.select(); //选择对象
+    document.execCommand("Copy"); //执行浏览器复制命令 
+    alert("已尝试复制"); 
+}
+// 更改URL不跳转
+
+/*
+* changeURLStatic 修改地址栏URL参数 不跳转
+*   @param name 参数名
+*   @param value 参数值
+*
+* */
+function changeURLStatic(name, value) {
+    var url = location.href;
+    var reg = eval('/([\?|&]'+name+'=)[^&]*/gi');
+    value = value.toString().replace(/(^\s*)|(\s*$)/g,"");  //移除首尾空格
+    if(!value){
+        var url2 = url.replace(reg , '');  //正则替换
+    }else{
+        if(url.match(reg)){
+            var url2 = url.replace(reg , '$1' + value);  //正则替换
+        }else{
+            var url2 = url + (url.indexOf('?') > -1 ? '&' : '?') + name + '=' +value;  //没有参数添加参数
+        }
+    }
+    history.replaceState(null,null, url2);  //替换地址栏
+}
+//当前页面地址
+//index.php?m=p&a=index&classify_id=225&search=i
+//执行修改
+//changeURLStatic('search', '99999');
+//修改后页面地址
+//index.php?m=p&a=index&classify_id=225&search=99999
+
+
+//获取get(url?)地址
+function getQueryVariable(variable)
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+/*
+使用实例
+url 实例：
+
+http://www.runoob.com/index.php?id=1&image=awesome.jpg
+调用 getQueryVariable("id") 返回 1。
+
+调用 getQueryVariable("image") 返回 "awesome.jpg"。
+*/
+function change_details(json){
+    // console.log(json);
+    var details_div = document.getElementById("details_div");
+    details_div.innerHTML = `<p>
+<strong>`+json.data.title+`</strong><br />
+UP主：<a class="bili_a" href="https://space.bilibili.com/`+json.data.owner.mid+`" target="_blank">`+json.data.owner.name+`</a><br />
+</p>
+<p id="desc">
+`+json.data.desc.replace(/\n/g,"<br />\n")+`
+</p>
+<p style="text-align: center;"><a  class="bili_a" href="`+json.data.pic+`" rel="noreferrer" target="_blank">点我可以打开视频封面呦</a></p>
+<br /><br /><hr /><br /><br />`;
+    document.title = json.data.title;
+    var details_button_div = document.getElementById("details_button");
+    var player_bilibili_URL = "https://player.bilibili.com/player.html?bvid=BV"+getQueryVariable("BV");
+    details_button_div.innerHTML = `<input type="submit" class="button" value="复制标题+本页链接" onclick="copy('【`+json.data.title+'】'+document.URL+`')" />&nbsp;
+<input type="submit" class="button" value="复制标题+纯视频链接" onclick="copy('【`+json.data.title+'】'+player_bilibili_URL+`')" />`;
+}
+function load_details_script(bvid) {
+	var oScript = document.createElement('script');
+	oScript.src = "https://api.bilibili.com/x/web-interface/view?jsonp=jsonp&callback=change_details&bvid="+bvid;
+	// 获取哔哩哔哩视频信息的核心在这里，
+	// callback=返回值的处理函数（change_details）
+	document.body.appendChild(oScript);
+	document.body.removeChild(oScript);  //注意回调之后删除生成的script
+}
+function show(BV){
+    var bvid = "BV" + BV;
+    biliplay_div.innerHTML = `<div style="position: relative;width: 100%;height: 0;padding-bottom: 75%;margin-bottom: 30px;">
+<iframe src="//player.bilibili.com/player.html?bvid=`+bvid+`" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width: 100%;"> </iframe>
+</div><br />
+<p style="text-align: center;"><a class="bili_a" href="https://www.bilibili.com/video/`+bvid+`">访问视频原网页</a></p>
+<div id="details_div"></div>`;
+    changeURLStatic('BV', BV);
+    BV_input.value = bvid;
+    var player_bilibili_URL = "https://player.bilibili.com/player.html?bvid="+bvid;
+    show_info_div.innerHTML = `
+<input type="submit" class="button" value="复制本页链接" onclick="copy(document.URL)" />&nbsp;<a href="#">`+document.URL+`</a><br />
+<input type="submit" class="button" value="复制纯视频链接" onclick="copy('`+player_bilibili_URL+`')" />&nbsp;<a href="`+player_bilibili_URL+`">`+player_bilibili_URL+`</a><br />
+<div id="details_button"></div>
+其他工具：<br />
+<a class="bili_a" href="https://www.bilibiliq.com/video/`+bvid+`" target="_blank">封面提取</a>
+<a class="bili_a" href="https://www.ibilibili.com/video/`+bvid+`" target="_blank">爱哔哩解析</a>&nbsp;
+<a class="bili_a" href="https://www.jijidown.com/video/`+bvid+`" target="_blank">哔哩哔哩唧唧</a>&nbsp;
+`;
+    details_div.innerHTML = "";
+    load_details_script(bvid);
+}
+function OK(BV_input_value){
+    try{
+        show(BV_input_value.match(/BV[0-9a-zA-Z]+/)[0].substring(2));
+    }
+    catch(err) {
+        try{
+            var b32_tv = BV_input_value.match(/https:\/\/b23.tv\/[0-9a-zA-Z]+/)[0];
+            alert("暂不支持“"+b32_tv+"”短链接，请在浏览器打开短链接后复制真正的链接\n该短链接将在新页面打开，请注意并复制新链接");
+            window.open(b32_tv, '_blank');
+        }
+        catch(err) {
+            alert("未识别到BV号，请输入正确的视频链接或BV号");
+        }
+    }
+}
+function onclick_OK(){
+	OK(BV_input.value);
+}
+function enter_OK(){
+	var event = window.event || arguments.callee.caller.arguments[0];
+	if (event.keyCode == 13)
+	{
+		onclick_OK();
+	}
+}
+
+if (getQueryVariable("BV")){
+    show(getQueryVariable("BV"))
+}
+    </script>
+    <style>
+*{margin: 0;padding: 0;}
+html{height: 100%;}
+body{height: 100%;}
+h1{text-align: center}
+#input_div {
+    display: flex;
+    padding: 4px;
+}   
+#BV {
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #fb729f;
+    border-radius: 5px;
+    display: flex;
+}
+#OK {
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background: #fb729f;
+    border-radius: 5px;
+    color: #fff;
+}
+.button {
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background: #fb729f;
+    border-radius: 5px;
+    color: #fff;
+}
+.bili_a{
+    text-decoration: none;
+    background: #fb729f;
+    border-radius: 5px;
+    color: #fff;
+}
+#desc{
+    color: #666;
+}
+.help_p{
+    color: #999;
+    /*display: inline-block;*/
+}
+.mplayer-widescreen-callapp {
+    background: #fb729f;
+    border-radius: 20px;
+    color: #fff;
+    width: 190px;
+    height: 36px;
+    font-size: 14px;
+    vertical-align: middle;
+    line-height: 36px;  /*line-height must be equal to height*/  
+    text-align: center;
+    margin:0px auto;
+}
+.end_p {
+    text-align: center;
+    padding: 30px 0px;
+    color: rgba(0, 0, 0, 0.7);
+}
+a.end_a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.7);
+}
+    </style>
+</body>
+</html>
