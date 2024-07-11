@@ -38,7 +38,7 @@
         repo: 'gitalk-comment',      // 存放评论的仓库
         owner: 'aaron888hacker',          // 仓库的创建者，
         admin: ['aaron888hacker'],        // 如果仓库有多个人可以操作，那么在这里以数组形式写出
-        id: 'https://aaron888hacker.github.io/',      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
+        md5(window.location.pathname)      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
         })
 
         gitalk.render('gitalk-container');    // 渲染Gitalk评论组件
