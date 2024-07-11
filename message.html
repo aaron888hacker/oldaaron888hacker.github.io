@@ -25,19 +25,17 @@
 <script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
     -->
 <script>
-var gitalk = new Gitalk({
-    id: location.pathname, // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
-    clientID: 'Ov23liItnsJTFCq24HjU', // GitHub Application Client ID
-    clientSecret: 'f4e6d69fe93a50a8258fc55d00bf8faad08e4722', // GitHub Application Client Secret
-    repo: 'gitalk', // 存放评论的仓库
-    owner: 'aaron888hacker', // 仓库的创建者，
-    admin: ['aaron888hacker'], // 如果仓库有多个人可以操作，那么在这里以数组形式写出
-    labels: ['Gitalk'], //GitHub issue 的标签。
-    perPage: 20, //每次加载的数据大小，最多 100。
-    language: 'zh-CN', //设置语言，支持 [en, zh-CN, zh-TW, es-ES, fr, ru, de, pl, ko]
-})
-gitalk.render('gitalk-container')
-</script>
+        var gitalk = new Gitalk({
+        clientID: 'Ov23ctl7j91XfRoFT4rK', // GitHub Application Client ID
+        clientSecret: '6a416ccce0ae393597a0058fa7c639dc3c29f4e7', // GitHub Application Client Secret
+        repo: 'aaron888hacker.github.io',      // 存放评论的仓库
+        owner: 'aaron888hacker',          // 仓库的创建者，
+        admin: ['aaron888hacker'],        // 如果仓库有多个人可以操作，那么在这里以数组形式写出
+        id: 'https://aaron888hacker.github.io/',      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
+        })
+
+        gitalk.render('gitalk-container');    // 渲染Gitalk评论组件
+    </script>
 
 <!--PC和WAP自适应版
 <div id="SOHUCS" sid="message" ></div> 
